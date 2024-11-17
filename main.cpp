@@ -7,7 +7,6 @@
 using namespace std;
 
 
-
 int main(){
 
     //testing heapsort
@@ -26,6 +25,6 @@ int main(){
     h.printPreorder();
     cout << endl;
     h.HeapSort();
-   // h.printPreorder();
+    h.printPreorder();
 
 }

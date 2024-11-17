@@ -27,10 +27,10 @@ void MinHeap::HeapSort() {
     for (int i = (heap_size/2)-1; i > 0; i--){
         MinHeapify(i);
     }
-  /*  for (int i = heap_size-1; i > 0; i--){
+    for (int i = heap_size-1; i > 0; i--){
         swap(&taskList.at(0), &taskList.at(i)); 
         MinHeapify(i);
-    }*/
+    }
 }
 
 //IMPLEMENT BST CONDITIONS
@@ -42,7 +42,13 @@ void MinHeap::insertKey(int k)
 		return; 
 	} */
 	heap_size++; 
+    int i = heap_size - 1; 
 	taskList.push_back(k);
+ //   while (i != 0 && taskList.at((i-1)/2) > taskList.at(i)) 
+//	{ 
+//	swap(&taskList.at(i), &taskList.at((i-1)/2)); 
+//	i = (i-1)/2; 
+//	} 
 } 
 
 int MinHeap::extractMin() 
@@ -82,7 +88,7 @@ void MinHeap::printPreorder()
 void MinHeap::preorder(int i)
 {
     if (i < heap_size){
-    cout <<i<<": " << taskList.at(i) << " ";  // Deal with the node
+    cout << taskList.at(i) << "\t";  // Deal with the node
     preorder(((i*2)+1));// Recur on left subtree
     preorder(((i*2)+2));// Recur on right subtree
     }

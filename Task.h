@@ -18,6 +18,11 @@ private:
 
 public:
     // Constructor
+    Task(){
+        string taskName = "";
+        int priority = 0;
+        int dueDate = 0;
+    } 
     Task(string taskName, int priority, int dueDate)
         : name(taskName), priorityLevel(priority), deadline(dueDate) {}
 
@@ -46,45 +51,7 @@ public:
     }
 };
 
-// TaskList Class Definition
-class TaskList {
-private:
-    priority_queue<Task> tasks; // Max-heap for tasks
 
-public:
-    // Add a Task
-    void addTask(const Task &task) {
-        tasks.push(task);
-    }
-
-    // Remove the top-priority task
-    void removeTask() {
-        if (!tasks.empty()) {
-            tasks.pop();
-        } else {
-            cout << "Task list is empty!" << endl;
-        }
-    }
-
-    // Print all tasks
-    void printTasks() const {
-        priority_queue<Task> temp = tasks; // Copy the heap for iteration
-        while (!temp.empty()) {
-            temp.top().printTask();
-            temp.pop();
-        }
-    }
-
-    // Getter for the tasks queue
-    priority_queue<Task> getTasks() const {
-        return tasks; // Returns a copy of the queue
-    }
-
-    // Setter for the tasks queue
-    void setTasks(const priority_queue<Task> &newTasks) {
-        tasks = newTasks; // Replace the current queue with the new one
-    }
-};
 
 #endif // TASK_H
 

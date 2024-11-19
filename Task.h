@@ -74,7 +74,18 @@ public:
             temp.pop();
         }
     }
+
+    // Getter for the tasks queue
+    priority_queue<Task> getTasks() const {
+        return tasks; // Returns a copy of the queue
+    }
+
+    // Setter for the tasks queue
+    void setTasks(const priority_queue<Task> &newTasks) {
+        tasks = newTasks; // Replace the current queue with the new one
+    }
 };
 
 #endif // TASK_H
+
 

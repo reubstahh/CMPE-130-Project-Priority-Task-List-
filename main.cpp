@@ -1,76 +1,53 @@
 #include "Task.h"
-#include "Heap.cpp"
 #include "TaskList.h"
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 
 using namespace std;
-void menu(int x, TaskList tasks)
-{
 
-    if (x == 1) // add new task to list
-    {
+// Menu Function
+void menu(int x, TaskList &tasks) {
+    if (x == 1) { // Add a new task
         string name;
         int p, d;
-        cout << "\t enter task name:";
+        cout << "Enter task name: ";
         cin >> name;
-        cout << "\tenter task priority (1 is low, 5 is highest)";
+        cout << "Enter task priority (1 is low, 5 is high): ";
         cin >> p;
-        // assuming all tasks are due in the same month
-        cout << "\tenter task deadline date ";
+        cout << "Enter task deadline: ";
         cin >> d;
         Task temptask(name, p, d);
         tasks.addTask(temptask);
     }
 
-    // ____ISSUE: new task does not print once added
-    if (x == 2) // print tasks
-    {
+    if (x == 2) { // Print all tasks
         tasks.printall();
     }
 
-    //remove task at i
-    if (x == 3)
-    {
+    if (x == 3) { // Remove a task by index
         tasks.printall();
-        cout << "\t enter task number:";
-        tasks.removeTask();
-    }
-    if (x == 4)
-    {
-        // do we wanna implement this
-    }
-    if (x == 5)
-    {
-        // tasks.sort();
-        // tasks.printPreorder();
+        int index;
+        cout << "Enter task number to remove: ";
+        cin >> index;
+        tasks.removeTask(index - 1); // Convert to 0-based index
     }
 }
-int main()
-{
 
-    //  _______debugging
-    Task t1("a", 3, 12);
-    Task t2("b", 3, 10);
-
+// Main Function
+int main() {
     TaskList allTasks;
-    allTasks.addTask(t1);
-    allTasks.addTask(t2);
-    t1.printTask();// prints t1
-    allTasks.printT(0); // prints t1
-    allTasks.printall(); // should print tasks t1 and t2
-    // ^^ this works!
 
-    // _____main
-    int x = 11;
-    while (x == 11)
-    {
-        cout << "*************************   MENU   ***************************" << endl;
-        cout << "1 for new task\n 2 to view tasklist\n 3 to delete a task\n 4 to edit a task\n 5 to sort\n -1 to quit";
+    int x = 0;
+    while (x != -1) {
+        cout << "************************* MENU ***************************" << endl;
+        cout << "1: Add Task\n2: View Task List\n3: Remove Task\n-1: Quit\n";
+        cout << "Enter your choice: ";
         cin >> x;
-        menu(x, allTasks);
-        cout << " 11 to return to menu, -1 to quit: ";
-        cin >> x;
+        if (x != -1) menu(x, allTasks);
     }
+
+    cout << "Exiting program. Goodbye!" << endl;
+    return 0;
 }

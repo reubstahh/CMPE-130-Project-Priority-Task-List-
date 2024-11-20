@@ -83,62 +83,9 @@ public:
         // merge sort by deadline
         // quick sort each subgroup before merging
         mergeSort(0, tasks.size() - 1);
-         quicksort(0, tasks.size() - 1);
-    }
-    // 4 5 5 5 2 2 2 2 2
-
-    void merge(int left,
-               int mid, int right)
-    {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-
-        // Create temp vectors
-        vector<Task> L(n1), R(n2);
-
-        // Copy data to temp vectors L[] and R[]
-        for (int i = 0; i < n1; i++)
-            L[i] = tasks.at(left + i);
-        for (int j = 0; j < n2; j++)
-            R[j] = tasks.at(mid + 1 + j);
-
-        int i = 0, j = 0;
-        int k = left;
-
-        // Merge the temp vectors back
-        // into arr[left..right]
-        while (i < n1 && j < n2)
-        {
-            if (L[i].getDeadline() <= R[j].getDeadline())
-            {
-                tasks.at(k) = L[i];
-                i++;
-            }
-            else
-            {
-                tasks.at(k) = R[j];
-                j++;
-            }
-            k++;
-        }
-
-        // Copy the remaining elements of L[],
-        // if there are any
-        while (i < n1)
-        {
-            tasks.at(k) = L[i];
-            i++;
-            k++;
-        }
-
-        // Copy the remaining elements of R[],
-        // if there are any
-        while (j < n2)
-        {
-            tasks.at(k) = R[j];
-            j++;
-            k++;
-        }
+        cout << "!!!!!!!mergesort complete!!!!!!!" <<endl;
+        this->printall();
+        quicksortSubgroups();
     }
 
     // begin is for left index and end is right index
@@ -154,9 +101,56 @@ public:
         merge(left, mid, right);
     }
 
+    void merge(int left,
+               int mid, int right)
+    {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        // Copy data to temp vectors L[] and R[]
+        vector<Task> L(n1), R(n2);
+        for (int i = 0; i < n1; i++)
+            L[i] = tasks.at(left + i);
+        for (int j = 0; j < n2; j++)
+            R[j] = tasks.at(mid + 1 + j);
+
+        int i = 0, j = 0;
+        int k = left;
+
+        // Merge the temp vectors back into arr[left..right]
+        while (i < n1 && j < n2)
+        {
+            if (L[i].getDeadline() <= R[j].getDeadline())
+            {
+                tasks.at(k) = L[i];
+                i++;
+            }
+            else
+            {
+                tasks.at(k) = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copy the remaining elements if there are any
+        while (i < n1)
+        {
+            tasks.at(k) = L[i];
+            i++;
+            k++;
+        }
+        while (j < n2)
+        {
+            tasks.at(k) = R[j];
+            j++;
+            k++;
+        }
+    }
+
     void quicksort(int low, int high)
     {
-        cout << "low:" << low << "\thigh:" << high << endl;
+
         if (low < high)
         {
             int p = pivot(low, high);
@@ -165,13 +159,34 @@ public:
             quicksort(p + 1, high);
         }
     }
+    // finds Tasks in TaskList with same deadlines
+    void quicksortSubgroups()
+    {
+        int low = 0;
+        while (low < tasks.size())
+        {
+            int high = low;
+
+            // Find the end of the subgroup with the same deadline
+            while (high + 1 < tasks.size() && tasks[high].getDeadline() == tasks[high + 1].getDeadline())
+            {
+                high++;
+            }
+
+            // Quicksort this subgroup by priority in descending order
+            quicksort(low, high);
+
+            // Move low to the next subgroup
+            low = high + 1;
+        }
+    }
     int pivot(int low, int high)
     {
         int i = low - 1;
         int p = tasks.at(high).getPriorityLevel();
         for (int j = low; j < high; j++)
         {
-            if (tasks.at(j).getPriorityLevel() < p)
+            if (tasks.at(j).getPriorityLevel() > p)
             {
                 cout << " hi!";
                 cout << tasks.at(j).getPriorityLevel() << tasks.at(i).getPriorityLevel() << endl;

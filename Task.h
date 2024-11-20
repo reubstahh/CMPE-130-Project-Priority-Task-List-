@@ -20,8 +20,8 @@ public:
     // Constructor
     Task(){
         string taskName = "";
-        int priority = 0;
-        int dueDate = 0;
+        int priorityLevel = 0;
+        int deadline = 0;
     } 
     Task(string taskName, int priority, int dueDate)
         : name(taskName), priorityLevel(priority), deadline(dueDate) {}
@@ -35,6 +35,11 @@ public:
     void setName(string taskName) { name = taskName; }
     void setPriorityLevel(int priority) { priorityLevel = priority; }
     void setDeadline(int dueDate) { deadline = dueDate; }
+    void operator=(const Task& task){
+        this->name = task.getName();
+        this->priorityLevel = task.priorityLevel;
+        this->deadline = task.deadline;
+    }
 
     // Comparison operator for sorting by deadline first, then priority
     bool operator<(const Task &other) const {

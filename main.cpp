@@ -33,21 +33,26 @@ void menu(int x, TaskList &tasks) {
         cin >> index;
         tasks.removeTask(index - 1); // Convert to 0-based index
     }
+    if (x == 4) {
+        tasks.sort();
+        tasks.printall();
+    }
 }
 
 // Main Function
 int main() {
     TaskList allTasks;
 
-    int x = 0;
-    while (x != -1) {
-        cout << "************************* MENU ***************************" << endl;
-        cout << "1: Add Task\n2: View Task List\n3: Remove Task\n-1: Quit\n";
+    int x = 0;cout << "************************* MENU ***************************" << endl;
+        cout << "1: Add Task\n2: View Task List\n3: Remove Task\n4: Sort Tasks\n-1: Quit\n";
         cout << "Enter your choice: ";
+        
+    while (x != -1) {
         cin >> x;
         if (x != -1) menu(x, allTasks);
+        cout << "enter menu option:";
     }
 
-    cout << "Exiting program. Goodbye!" << endl;
+    cout << "\nExiting program. Goodbye!" << endl;
     return 0;
 }
